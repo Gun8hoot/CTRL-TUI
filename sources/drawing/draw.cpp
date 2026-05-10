@@ -18,3 +18,31 @@ void	writeToPos(unsigned int Y, unsigned int X, std::string content)
 	std::cout << content;
 	std::cout.flush();
 }
+
+void	box(int	startX, int startY, int endX, int endY)
+{
+	if (endX < startX || endY < startY)
+	{
+		std::cout << BY_TERM_RED << "[!] Failed to draw a box\n";
+		return;
+	}
+	for (int y = startY; y < endY; y++)
+	{
+		for (int x = startX; x < endX; x++)
+		{
+			TERM_MOVE_CURSOR(startX + x + 1, startY + y + 1);
+			if (x == startX && y == startY)
+				std::cout << "╭";
+			else if (x == endX - 1 && y == startY)
+				std::cout << "╮";
+			else if (x == endX - 1 && y == endY - 1)
+				std::cout << "╭";
+			else if (x == endX - 1 && y == startY)
+				std::cout << "╮";
+			else if ((y == startY || y == endY - 1) && (x != startX || x != endX - 1))
+				std::cout << "─";
+			else if ((x == startX || x == endX - 1) && (y != startY || y != endY))
+				std::cout << "│";
+		}
+	}
+}

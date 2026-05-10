@@ -39,28 +39,48 @@ int main(void)
 	if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &sz) == -1)
 		return (1);
 	banner(sz);
+	box(1, 1, sz.ws_col - 1, sz.ws_col - 1);
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t┌──────────────────────────┐\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t└──────────────────────────┘\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t╭──────────────────────────╮\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
+	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t╰──────────────────────────╯\n";
 
-    while (true){
-    	if (hasResizeWindow == 1)
-     	{
-      		if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &sz) == -1)
-        		return (1);
-       		banner(sz);
-    		hasResizeWindow = 0;
-      	}
-        ssize_t n = read(STDIN_FILENO, &c, 1);
-        if (n > 0) {
-            if (c == 'q' || c == 'Q') {
-                break;
-            }
-            std::cout << "You pressed: " << c << "\n";
-            std::cout.flush();
-        }
-        if (n == -1 && errno == EAGAIN)
-        {
-        usleep(50000);
-        }
-    }
+	while (true){
+		if (hasResizeWindow == 1)
+		{
+			if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &sz) == -1)
+				return (1);
+			banner(sz);
+			hasResizeWindow = 0;
+		}
+		ssize_t n = read(STDIN_FILENO, &c, 1);
+		if (n > 0)
+		{
+			if (c == 'q' || c == 'Q') {
+				break;
+			}
+			std::cout << "You pressed: " << c << "\n";
+			std::cout.flush();
+		}
+		if (n == -1 && errno == EAGAIN)
+		{
+			usleep(50000);
+		}
+	}
 
 	tmanager.enterAltBuffer();
 	return (0);
