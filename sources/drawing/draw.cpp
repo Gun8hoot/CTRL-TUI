@@ -26,11 +26,6 @@ void	writeToPos(unsigned int Y, unsigned int X, std::string content)
 
 void	box(int	startX, int startY, int endX, int endY)
 {
-	if (endX < startX || endY < startY)
-	{
-		std::cout << BY_TERM_RED << "[!] Failed to draw a box\n";
-		return;
-	}
 	std::cout << TERM_BLUE;
 	for (int y = startY; y < endY; y++)
 	{
@@ -50,8 +45,10 @@ void	box(int	startX, int startY, int endX, int endY)
 			else if ((x == startX || x == endX - 1) && (y != startY || y != endY))
 				std::cout << "│";
 			else
-				std::cout << "M";
+				std::cout << " ";
 			std::cout.flush();
+			fflush(stdout);
+
 		}
 	}
 	std::cout << TERM_RESET;

@@ -17,7 +17,9 @@ void termManager::enterAltBuffer(void)
 
 	std::cout << TERM_ENTER_ALT;	// Enter in the alternate screen buffer
 	std::cout << TERM_CLEAR;		// Clear screen
-	TERM_MOVE_CURSOR(0, 0);			// Move to home (first character/line of the terminal)
+	// std::cout << "\033[?1000l";		// Disable mouse reporting (button events)
+	// std::cout << "\033[?1002l";		// Disable mouse drag events
+	// std::cout << "\033[?1003l";		// Disable mouse motion events
 	std::cout.flush();
 	fflush(stdout);
 	this->onAltBuffer = true;
@@ -28,16 +30,22 @@ void termManager::enterAltBuffer(void)
 	tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 }
 
-void	termManager::exitAltBuffer(void)
+
+void termManager::exitAltBuffer(void)
 {
 	if (this->onAltBuffer)
 	{
+		// std::cout << "\033[?1000h";		// Re-enable mouse button clicks
+		// std::cout << "\033[?1002h";		// Re-enable mouse drag
+		// std::cout << "\033[?1003h";		// Re-enable mouse motion
 		std::cout << TERM_EXIT_ALT;
 		std::cout.flush();
 		fflush(stdout);
 		this->onAltBuffer = false;
 	}
 }
+
+
 
 void	termManager::restoreTerminal(void)
 {

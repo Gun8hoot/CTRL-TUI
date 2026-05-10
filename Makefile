@@ -1,7 +1,7 @@
 NAME		=	ctrl-tui
 
 CC			=	c++
-CFLAGS		=	-Wall -Wextra -Werror -g3 -I. -std=c++11
+CFLAGS		=	-Wall -Wextra -Werror -g -I. -std=c++11
 SRCS_DIR	=	sources
 OBJS_DIR	=	objects
 SRCS		=	$(SRCS_DIR)/main.cpp\
