@@ -31,41 +31,22 @@ int main(void)
 {
 	struct winsize	sz;
 	termManager		tmanager;
-	char c;
+	char c = '\0';
 
-	signal(SIGWINCH, &resizeWindow);
-	fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);
+	signal(SIGWINCH, &resizeWindow);			// Handle the window resize signal
+	fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);	// get non-blocking syscall
 	tmanager.enterAltBuffer();
-	if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &sz) == -1)
-		return (1);
-	banner(sz);
-	box(1, 1, sz.ws_col - 1, sz.ws_col - 1);
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t┌──────────────────────────┐\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t└──────────────────────────┘\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t╭──────────────────────────╮\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t│                          │\n";
-	// std::cout << "\t\t\t\t\t\t\t\t\t\t\t╰──────────────────────────╯\n";
 
 	while (true){
-		if (hasResizeWindow == 1)
+		if (hasResizeWindow == 1 || c == '\0' || c == 'r')
 		{
 			if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &sz) == -1)
 				return (1);
 			banner(sz);
-			hasResizeWindow = 0;
+			writeToPos(9 + 1, sz.ws_col / 2 - 2, "host: ");
+			std::cout << 27;
+			box(1, 10, sz.ws_col - 1, sz.ws_col - 1);
+			c = 1;
 		}
 		ssize_t n = read(STDIN_FILENO, &c, 1);
 		if (n > 0)
@@ -73,8 +54,6 @@ int main(void)
 			if (c == 'q' || c == 'Q') {
 				break;
 			}
-			std::cout << "You pressed: " << c << "\n";
-			std::cout.flush();
 		}
 		if (n == -1 && errno == EAGAIN)
 		{
