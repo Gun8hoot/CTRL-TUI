@@ -13,8 +13,9 @@ void	resizeWindow(int sig, siginfo_t *ptr1, void *ptr2)
 
 void	replaceLastLine(std::string str)
 {
-	std::cout << "\033[2K\r" << std::flush;  // Clear line, move cursor to start
+	std::cout << "\033[2K\r";  // Clear line, move cursor to start
 	std::cout << str;
+	std::cout.flush();
 }
 
 bool	init_resize_sig(struct sigaction *sa)
@@ -43,7 +44,7 @@ int main(void)
 	{
 		if (hasResizeWindow == true)
 		{
-			puts(TERM_CLEAR);
+			std::cout << TERM_CLEAR;
 			std::cout.flush();
 			if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &tui.sz) == -1 && errno != EAGAIN)
 				tui.tmanager.restoreTerminal();

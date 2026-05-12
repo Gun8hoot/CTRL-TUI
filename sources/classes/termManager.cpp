@@ -14,9 +14,9 @@ termManager::termManager(void)
 void	termManager::enterRawMode(void)
 {
 	std::cout << TERM_ENTER_ALT;
+	std::cout.flush();
 	std::cout << TERM_CLEAR << TERM_HIDE_CURSOR;
 	std::cout.flush();
-	fflush(stdout);
 }
 
 void termManager::enterAltBuffer(void)
@@ -29,9 +29,9 @@ void termManager::enterAltBuffer(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &raw);
 
 	std::cout << TERM_ENTER_ALT;	// Enter in the alternate screen buffer
+	std::cout.flush();
 	std::cout << TERM_CLEAR << TERM_HIDE_CURSOR;
 	std::cout.flush();
-	fflush(stdout);
 	this->onAltBuffer = true;
 }
 
@@ -45,7 +45,6 @@ void termManager::exitAltBuffer(void)
 		// std::cout << "\033[?1003h";		// Re-enable mouse motion
 		std::cout << TERM_EXIT_ALT << TERM_SHOW_CURSOR;
 		std::cout.flush();
-		fflush(stdout);
 		this->onAltBuffer = false;
 	}
 }

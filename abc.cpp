@@ -19,7 +19,7 @@ int main(int argc, char **argv)
     struct winsize	sz = {0};
 
 	// signal(SIGWINCH, sig);
-	puts(TERM_ENTER_ALT);
+	std::cout << TERM_ENTER_ALT;
 	std::cout.flush();
     tcgetattr(STDIN_FILENO, &save);
     attr = save;
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
         }
     }
     tcgetattr(STDIN_FILENO, &save);
-	puts(TERM_EXIT_ALT);
+	std::cout << TERM_EXIT_ALT;
 	std::cout.flush();
     return 0;
 }

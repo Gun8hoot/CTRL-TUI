@@ -24,8 +24,8 @@ void	writeToPos(unsigned int Y, unsigned int X, std::string content)
 
 void	box(int	startX, int startY, int endX, int endY, std::string color)
 {
-	std::cout.flush() << color;
-
+	std::cout << color;
+	std::cout.flush();
 	for (int y = startY; y < endY; y++)
 	{
 		for (int x = startX; x < endX; x++)
@@ -44,15 +44,16 @@ void	box(int	startX, int startY, int endX, int endY, std::string color)
 			else if ((x == startX || x == endX - 1) && (y != startY || y != endY))
 				std::cout << "│";
 			std::cout.flush();
-			fflush(stdout);
 		}
 	}
-	std::cout.flush() << TERM_RESET;
+	std::cout << TERM_RESET;
+	std::cout.flush();
 }
 
 void	banner(struct winsize sz)
 {
 	std::cout << TERM_PURPLE;
+	std::cout.flush();
 	writeToCenterX("  .,~::::::::::::::::::::::::..    :::     \n", sz.ws_col, 2);
 	writeToCenterX(",;;;'````';;;;;;;;'''';;;;``;;;;   ;;;     \n", sz.ws_col, 3);
 	writeToCenterX("[[[            [[      [[[,/[[['   [[[     \n", sz.ws_col, 4);
