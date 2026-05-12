@@ -1,3 +1,4 @@
 test*.cpp
 objects
 ctrl-tui
+.clangd

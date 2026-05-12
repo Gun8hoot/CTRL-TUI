@@ -1,11 +1,13 @@
 #include "includes/main.hpp"
 
-volatile sig_atomic_t hasResizeWindow = true;
+volatile sig_atomic_t hasResizeWindow = false;
 termManager* termManager::altBuffer = nullptr;
 
-void	resizeWindow(int sig)
+void	resizeWindow(int sig, siginfo_t *ptr1, void *ptr2)
 {
 	(void)sig;
+	(void)ptr1;
+	(void)ptr2;
 	hasResizeWindow = true;
 }
 
@@ -15,43 +17,47 @@ void	replaceLastLine(std::string str)
 	std::cout << str;
 }
 
-void	banner(struct winsize sz)
+bool	init_resize_sig(struct sigaction *sa)
 {
-	std::cout << TERM_PURPLE;
-	writeToCenterX("  .,~::::::::::::::::::::::::..    :::     \n", sz.ws_col, 2);
-	writeToCenterX(",;;;'````';;;;;;;;'''';;;;``;;;;   ;;;     \n", sz.ws_col, 3);
-	writeToCenterX("[[[            [[      [[[,/[[['   [[[     \n", sz.ws_col, 4);
-	writeToCenterX("$$$            $$      $$$$$$c     $$'     \n", sz.ws_col, 5);
-	writeToCenterX("`88bo,__,o,    88,     888b \"88bo,o88oo,.__\n", sz.ws_col, 6);
-	writeToCenterX("  \"YUMMMMMP\"   MMM     MMMM   \"W\" \"\"\"\"YUMMM\n", sz.ws_col, 7);
-	std::cout << TERM_RESET;
-	std::cout.flush();
+	memset(sa, '\0', sizeof(*sa));
+	sa->sa_sigaction = resizeWindow;
+	sigemptyset(&sa->sa_mask);
+	sigaddset(&sa->sa_mask, SIGWINCH);
+	if (sigaction(SIGWINCH, sa, NULL) == -1)
+		return (false);
+	hasResizeWindow = true;	// First iteration
+	return (true);
 }
 
 int main(void)
 {
-	struct winsize	sz;
-	termManager		tmanager;
+	t_tui	tui;
+	char	buff[8];
 
-	signal(SIGWINCH, &resizeWindow);			// Handle the window resize signal
-	fcntl(STDIN_FILENO, F_SETFL, O_NONBLOCK);	// get non-blocking syscall
-	tmanager.enterAltBuffer();
-
+	hasResizeWindow = false;
+	std::memset(&tui, '\0', sizeof(t_tui));
+	if (!init_resize_sig(&tui.sa))
+		return (1);
+	tui.tmanager.enterAltBuffer();
 	while (true)
 	{
 		if (hasResizeWindow == true)
 		{
-			if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &sz) == -1)
-				return (1);
-			else
-			{
-				banner(sz);
-				box(0, 10, sz.ws_col, sz.ws_col);
-				fflush(stdout);
-				hasResizeWindow = false;
-			}
+			puts(TERM_CLEAR);
+			std::cout.flush();
+			if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &tui.sz) == -1 && errno != EAGAIN)
+				tui.tmanager.restoreTerminal();
+			main_menu(tui);
+			hasResizeWindow = false;
 		}
-		sleep(1);
+		if (read(STDIN_FILENO, &buff, 80) > 0)
+		{
+			if (buff[0] == 'q' || buff[0] == 'Q')
+				kill(getpid(), SIGINT);
+			writeToCenterX("INPUT CAUGHT", tui.sz.ws_col, tui.sz.ws_row / 2);
+			std::cout.flush();
+		}
+		usleep(100000);
 	}
 	return (0);
 }

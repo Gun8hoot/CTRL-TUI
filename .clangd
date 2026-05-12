@@ -1,5 +1,5 @@
 CompileFlags:
-  Add:
-    - -Wall -Wextra -Werror
-    - -std=c++11
-    - -I/home/gun8hoot/Documents/ghost/.tui
+    Add:
+        - -Wall -Wextra -Werror
+        - -std=c++11
+        - -I/home/nclavel/Documents/ctrl

@@ -18,6 +18,7 @@ class	termManager
 
 		void	enterAltBuffer(void);
 		void	exitAltBuffer(void);
+		void	enterRawMode(void);
 		static void	signalAltBuffer(int sig);
 		void	restoreTerminal(void);
 

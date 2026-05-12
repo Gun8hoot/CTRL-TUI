@@ -20,11 +20,16 @@
 # define TERM_CYAN "\x1b[0;36m"
 # define TERM_WHITE "\x1b[0;37m"
 
+// Terminal special escape sequence
 # define TERM_RESET "\x1b[0m"
-
 # define TERM_CLEAR "\x1b[2J"
 # define TERM_RM_LINE "\x1b[2K"
 # define TERM_ENTER_ALT "\x1b[?1049h"
 # define TERM_EXIT_ALT "\x1b[?1049l"
 
+// Terminal cursor escape sequence
+# define TERM_SHOW_CURSOR "\x1b[?25h"
+# define TERM_HIDE_CURSOR "\x1b[?25l"
+
+// Macro
 # define TERM_MOVE_CURSOR(X, Y) std::cout << "\x1b[" << Y << ";" << X << "H"

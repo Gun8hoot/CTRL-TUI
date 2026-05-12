@@ -11,8 +11,6 @@ void	writeToCenterX(const std::string str, int x, int y)
 	if (new_x >= 0 && new_y >= 0)
 	{
 		TERM_MOVE_CURSOR(0, new_y);
-		std::cout << TERM_RM_LINE;
-		std::cout.flush();
 		writeToPos(new_y, new_x, str);
 	}
 }
@@ -24,9 +22,10 @@ void	writeToPos(unsigned int Y, unsigned int X, std::string content)
 	std::cout.flush();
 }
 
-void	box(int	startX, int startY, int endX, int endY)
+void	box(int	startX, int startY, int endX, int endY, std::string color)
 {
-	std::cout << TERM_BLUE;
+	std::cout.flush() << color;
+
 	for (int y = startY; y < endY; y++)
 	{
 		for (int x = startX; x < endX; x++)
@@ -44,12 +43,22 @@ void	box(int	startX, int startY, int endX, int endY)
 				std::cout << "─";
 			else if ((x == startX || x == endX - 1) && (y != startY || y != endY))
 				std::cout << "│";
-			else
-				std::cout << " ";
 			std::cout.flush();
 			fflush(stdout);
-
 		}
 	}
+	std::cout.flush() << TERM_RESET;
+}
+
+void	banner(struct winsize sz)
+{
+	std::cout << TERM_PURPLE;
+	writeToCenterX("  .,~::::::::::::::::::::::::..    :::     \n", sz.ws_col, 2);
+	writeToCenterX(",;;;'````';;;;;;;;'''';;;;``;;;;   ;;;     \n", sz.ws_col, 3);
+	writeToCenterX("[[[            [[      [[[,/[[['   [[[     \n", sz.ws_col, 4);
+	writeToCenterX("$$$            $$      $$$$$$c     $$'     \n", sz.ws_col, 5);
+	writeToCenterX("`88bo,__,o,    88,     888b \"88bo,o88oo,.__\n", sz.ws_col, 6);
+	writeToCenterX("  \"YUMMMMMP\"   MMM     MMMM   \"W\" \"\"\"\"YUMMM\n", sz.ws_col, 7);
 	std::cout << TERM_RESET;
+	std::cout.flush();
 }
