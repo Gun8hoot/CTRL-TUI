@@ -17,3 +17,7 @@ git clone https://github.com/Gun8hoot/CTRL-TUI.git && cd CTRL-TUI
 ```sh
 make
 ```
+
+## THE IDEA
+![main](./assets/main_menu.png)
+![search](./assets/search_menu.png)
