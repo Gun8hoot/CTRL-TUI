@@ -7,7 +7,9 @@ OBJS_DIR	=	objects
 SRCS		=	$(SRCS_DIR)/main.cpp\
 				$(SRCS_DIR)/frames/main_menu.cpp\
 				$(SRCS_DIR)/classes/termManager.cpp\
-				$(SRCS_DIR)/drawing/draw.cpp
+				$(SRCS_DIR)/render/draw.cpp\
+				$(SRCS_DIR)/render/render_thread.cpp\
+				$(SRCS_DIR)/struct/render.cpp
 
 OBJS		=	$(SRCS:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
 

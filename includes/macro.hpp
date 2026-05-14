@@ -20,6 +20,8 @@
 # define TERM_CYAN "\x1b[0;36m"
 # define TERM_WHITE "\x1b[0;37m"
 
+// Terminal background color
+
 // Terminal special escape sequence
 # define TERM_RESET "\x1b[0m"
 # define TERM_CLEAR "\x1b[2J"

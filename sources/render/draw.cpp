@@ -22,15 +22,15 @@ void	writeToPos(unsigned int Y, unsigned int X, std::string content)
 	std::cout.flush();
 }
 
-void	box(int	startX, int startY, int endX, int endY, std::string color)
+void	box(int startX, int startY, int endX, int endY, std::string color)
 {
 	std::cout << color;
-	std::cout.flush();
 	for (int y = startY; y < endY; y++)
 	{
 		for (int x = startX; x < endX; x++)
 		{
-			TERM_MOVE_CURSOR(startX + x + 1, y + 1);
+			TERM_MOVE_CURSOR(x + 1, y + 1);
+
 			if (x == startX && y == startY)
 				std::cout << "╭";
 			else if (x == endX - 1 && y == startY)
@@ -39,16 +39,18 @@ void	box(int	startX, int startY, int endX, int endY, std::string color)
 				std::cout << "╰";
 			else if (x == endX - 1 && y == endY - 1)
 				std::cout << "╯";
-			else if ((y == startY || y == endY - 1) && (x != startX || x != endX - 1))
+			else if ((y == startY || y == endY - 1) && (x != startX && x != endX - 1))
 				std::cout << "─";
-			else if ((x == startX || x == endX - 1) && (y != startY || y != endY))
+			else if ((x == startX || x == endX - 1) && (y != startY && y != endY - 1))
 				std::cout << "│";
-			std::cout.flush();
+			else
+				std::cout << " ";
 		}
 	}
 	std::cout << TERM_RESET;
 	std::cout.flush();
 }
+
 
 void	banner(struct winsize sz)
 {

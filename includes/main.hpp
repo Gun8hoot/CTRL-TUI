@@ -5,4 +5,4 @@
 # include "includes/includes.hpp"
 # include "includes/prototype.hpp"
 
-extern volatile	sig_atomic_t	hasResizeWindow;
+extern volatile	sig_atomic_t	refreshRender;

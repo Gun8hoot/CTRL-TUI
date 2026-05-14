@@ -1,18 +1,17 @@
 
 #pragma once
-# include "includes/includes.hpp"
 # include <sys/ioctl.h>
-# include <cstring>
+# include <csignal>
+# include "includes/classes/termManager.hpp"
+# include "includes/struct/render.hpp"
 
 typedef struct	s_tui
 {
-	s_tui(void)
-	{
-		std::memset(this, '\0', sizeof(struct s_tui));
-	}
-	struct sigaction	sa;
-	struct	winsize		sz;
-	termManager	tmanager;
-	int8_t		selection_cursor_pos;
-	bool		help_menu;
+	struct sigaction	sa = {};
+	struct	winsize		sz  = {};
+	termManager			tmanager;
+	render_t			render;
+	int					selection_cursor_pos = 0;
+	bool				help_menu = false;
+	bool				criticalError = false;
 }	t_tui;
