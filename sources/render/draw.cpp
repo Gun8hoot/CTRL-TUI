@@ -1,6 +1,5 @@
 #include "includes/main.hpp"
 
-// NOTE FOR LATER : ROW == Y ; COL == X
 void	writeToCenterX(const std::string str, int x, int y)
 {
 	int	new_x;
@@ -15,6 +14,7 @@ void	writeToCenterX(const std::string str, int x, int y)
 	}
 }
 
+// NOTE FOR LATER : ROW == Y ; COL == X
 void	writeToPos(unsigned int Y, unsigned int X, std::string content)
 {
 	TERM_MOVE_CURSOR(X, Y);

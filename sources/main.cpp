@@ -36,6 +36,18 @@ int main(void)
 	{
 		if (read(STDIN_FILENO, &buff, 8) > 0)
 		{
+			if (buff[0] == '\x1b')
+			{
+				TERM_MOVE_CURSOR(2, 2);
+				switch (buff[2])
+				{
+					case 'A': std::cout << "↑ up arrow   "; break;
+					case 'B': std::cout << "↓ down arrow "; break;
+					case 'C': std::cout << "→ right arrow"; break;
+					case 'D': std::cout << "← left arrow "; break;
+				}
+				std::cout.flush();
+			}
 			if (buff[0] == 'q' || buff[0] == 'Q')
 				break;
 		}
