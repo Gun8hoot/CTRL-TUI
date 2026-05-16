@@ -16,6 +16,8 @@ void	*render_routine(void	*ptrRender_t)
 				return (NULL);
 			}
 			main_menu(render);
+			TERM_MOVE_CURSOR(100, 25);
+			std::cout << render->cursorPosition;
 			refreshRender = false;
 		}
 		usleep(5000);

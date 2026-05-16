@@ -41,10 +41,10 @@ int main(void)
 				TERM_MOVE_CURSOR(2, 2);
 				switch (buff[2])
 				{
-					case 'A': std::cout << "↑ up arrow   "; break;
-					case 'B': std::cout << "↓ down arrow "; break;
-					case 'C': std::cout << "→ right arrow"; break;
-					case 'D': std::cout << "← left arrow "; break;
+					case 'A': tui.moveMainMenuCursor(-1); break;
+					case 'B': tui.moveMainMenuCursor(+1); break;
+					case 'C': tui.moveMainMenuCursor(+2); break;
+					case 'D': tui.moveMainMenuCursor(-2); break;
 				}
 				std::cout.flush();
 			}

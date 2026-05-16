@@ -41,6 +41,10 @@ render_s::render_s(void)
 	mtxStopThread = NULL;
 	this->stopThread = false;
 	this->renderTid = 0;
+	this->cursorPosition = 0;
+	this->mtxCursorPosition = new pthread_mutex_t;
+	if (this->mtxCursorPosition == NULL)
+		this->stopThread = true;
 }
 
 render_s::~render_s(void)
@@ -55,6 +59,12 @@ render_s::~render_s(void)
 		pthread_mutex_destroy(this->mtxStopThread);
 		delete this->mtxStopThread;
 		this->mtxStopThread = NULL;
+	}
+	if (mtxCursorPosition != NULL)
+	{
+		pthread_mutex_destroy(this->mtxCursorPosition);
+		delete this->mtxCursorPosition;
+		this->mtxCursorPosition = NULL;
 	}
 	std::cout << "Destructor called" << std::endl;
 }

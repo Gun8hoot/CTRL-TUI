@@ -11,7 +11,8 @@ typedef struct	s_tui
 	struct	winsize		sz  = {};
 	termManager			tmanager;
 	render_t			render;
-	int					selection_cursor_pos = 0;
 	bool				help_menu = false;
 	bool				criticalError = false;
+
+	void				moveMainMenuCursor(int newPos);
 }	t_tui;

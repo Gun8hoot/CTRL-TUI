@@ -9,7 +9,8 @@ SRCS		=	$(SRCS_DIR)/main.cpp\
 				$(SRCS_DIR)/classes/termManager.cpp\
 				$(SRCS_DIR)/render/draw.cpp\
 				$(SRCS_DIR)/render/render_thread.cpp\
-				$(SRCS_DIR)/struct/render.cpp
+				$(SRCS_DIR)/struct/render.cpp\
+				$(SRCS_DIR)/struct/tui.cpp
 
 OBJS		=	$(SRCS:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
 
