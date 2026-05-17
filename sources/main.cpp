@@ -40,7 +40,11 @@ void	loop(t_tui &tui)
 					case 'D': tui.moveMainMenuCursor(-2); break;
 				}
 			}
-			if (buffer[0] == 'q' || buffer[0] == 'Q')
+			else if (buffer[0] == '\n')
+			{
+				;
+			}
+			else if (buffer[0] == 'q' || buffer[0] == 'Q')
 				break;
 		}
 		fflush(stdin);

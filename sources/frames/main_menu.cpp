@@ -27,11 +27,11 @@ void	writeMainMenuText(struct winsize win_size, render_t *render)
 	greenBoxCenterHeight = 9 + 2 + greenBoxHeight / 2;
 	TERM_MOVE_CURSOR(0, 0);
 	std::cout << "Height : " << greenBoxHeight << " ; Width : " << greenBoxWidth;
-	mainMenuText(greenBoxCenterWidth, greenBoxCenterHeight + 2, MAIN_MENU_1ST, render->cursorPosition, 0);
-	mainMenuText(greenBoxCenterWidth, greenBoxCenterHeight + 4, MAIN_MENU_2ST, render->cursorPosition, 1);
-	mainMenuText(greenBoxCenterWidth, greenBoxCenterHeight + 6, MAIN_MENU_3ST, render->cursorPosition, 2);
-	mainMenuText(greenBoxCenterWidth, greenBoxCenterHeight + 8, MAIN_MENU_4ST, render->cursorPosition, 3);
-	mainMenuText(greenBoxCenterWidth, greenBoxCenterHeight + 10, MAIN_MENU_5ST, render->cursorPosition, 4);
+	mainMenuText(greenBoxCenterWidth, greenBoxCenterHeight - 4, MAIN_MENU_1ST, render->cursorPosition, 0);
+	mainMenuText(greenBoxCenterWidth, greenBoxCenterHeight - 2, MAIN_MENU_2ST, render->cursorPosition, 1);
+	mainMenuText(greenBoxCenterWidth, greenBoxCenterHeight + 0, MAIN_MENU_3ST, render->cursorPosition, 2);
+	mainMenuText(greenBoxCenterWidth, greenBoxCenterHeight + 2, MAIN_MENU_4ST, render->cursorPosition, 3);
+	mainMenuText(greenBoxCenterWidth, greenBoxCenterHeight + 4, MAIN_MENU_5ST, render->cursorPosition, 4);
 }
 
 void	main_menu(render_t	*render)

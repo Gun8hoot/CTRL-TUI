@@ -18,21 +18,21 @@ bool					render_t::getStopThread(void)
 
 bool	render_t::calculateWindowSize(struct winsize	&ptrWinSize)
 {
-		struct winsize	beforeSleep;
-		struct winsize	afterSleep;
+	struct winsize	beforeSleep;
+	struct winsize	afterSleep;
 
-		while (1)
-		{
-			if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &beforeSleep) == -1)
-				return (false);
-			usleep(1000);
-			if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &afterSleep) == -1)
-				return (false);
-			if ((beforeSleep.ws_col == afterSleep.ws_col) && (beforeSleep.ws_row == afterSleep.ws_row))
-				break;
-		}
-		ptrWinSize = afterSleep;
-		return (true);
+	while (1)
+	{
+		if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &beforeSleep) == -1)
+			return (false);
+		usleep(500);
+		if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &afterSleep) == -1)
+			return (false);
+		if ((beforeSleep.ws_col == afterSleep.ws_col) && (beforeSleep.ws_row == afterSleep.ws_row))
+			break;
+	}
+	ptrWinSize = afterSleep;
+	return (true);
 }
 
 render_s::render_s(void)

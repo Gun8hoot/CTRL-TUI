@@ -62,6 +62,7 @@ void	banner(struct winsize sz)
 	writeToCenterX("$$$            $$      $$$$$$c     $$'     \n", sz.ws_col, 5);
 	writeToCenterX("`88bo,__,o,    88,     888b \"88bo,o88oo,.__\n", sz.ws_col, 6);
 	writeToCenterX("  \"YUMMMMMP\"   MMM     MMMM   \"W\" \"\"\"\"YUMMM\n", sz.ws_col, 7);
+	writeToCenterX("by Gun8hoot", sz.ws_col, 8);
 	std::cout << TERM_RESET;
 	std::cout.flush();
 }

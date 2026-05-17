@@ -27,6 +27,8 @@ void	*render_routine(void	*ptrRender_t)
 
 bool	init_thread(t_tui &tui)
 {
+	if (tui.render.stopThread == true)
+		return (false);
 	tui.render.mtxStopThread = new pthread_mutex_t;
 	if (tui.render.mtxStopThread == NULL)
 		return (false);
