@@ -22,37 +22,41 @@ bool	init_resize_sig(struct sigaction &sa)
 	return (true);
 }
 
-int main(void)
+void	loop(t_tui &tui)
 {
-	t_tui	tui;
-	char	buff[8];
+	unsigned char	buffer[4];
 
-	if (!init_resize_sig(tui.sa))
-		return (1);
-	tui.tmanager.enterAltBuffer();
-	if (!init_thread(tui))
-		return (false);
 	while (!tui.render.getStopThread())
 	{
-		if (read(STDIN_FILENO, &buff, 8) > 0)
+		if (read(STDIN_FILENO, &buffer, 4) > 0)
 		{
-			if (buff[0] == '\x1b')
+			if (buffer[0] == '\x1b')
 			{
-				TERM_MOVE_CURSOR(2, 2);
-				switch (buff[2])
+				switch (buffer[2])
 				{
 					case 'A': tui.moveMainMenuCursor(-1); break;
 					case 'B': tui.moveMainMenuCursor(+1); break;
 					case 'C': tui.moveMainMenuCursor(+2); break;
 					case 'D': tui.moveMainMenuCursor(-2); break;
 				}
-				std::cout.flush();
 			}
-			if (buff[0] == 'q' || buff[0] == 'Q')
+			if (buffer[0] == 'q' || buffer[0] == 'Q')
 				break;
 		}
 		fflush(stdin);
 		usleep(10000);
 	}
+}
+
+int main(void)
+{
+	t_tui	tui;
+
+	if (!init_resize_sig(tui.sa))
+		return (1);
+	tui.tmanager.enterAltBuffer();
+	if (!init_thread(tui))
+		return (false);
+	loop(tui);
 	return (0);
 }
