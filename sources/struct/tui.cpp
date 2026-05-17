@@ -7,7 +7,7 @@ void	t_tui::moveMainMenuCursor(int newPos)
 
 	pthread_mutex_lock(this->render.mtxCursorPosition);
 	updatedPos = this->render.cursorPosition + newPos;
-	if (updatedPos >= 0 && updatedPos < 4)
+	if (updatedPos >= 0 && updatedPos < 5)
 	{
 		this->render.cursorPosition = updatedPos;
 		refreshRender = true;

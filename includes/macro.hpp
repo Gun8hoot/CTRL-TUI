@@ -33,5 +33,12 @@
 # define TERM_SHOW_CURSOR "\x1b[?25h"
 # define TERM_HIDE_CURSOR "\x1b[?25l"
 
+// Main menu string
+# define MAIN_MENU_1ST "1.<PLACEHOLDER>"
+# define MAIN_MENU_2ST "2.<PLACEHOLDER>"
+# define MAIN_MENU_3ST "3.<PLACEHOLDER>"
+# define MAIN_MENU_4ST "4.<PLACEHOLDER>"
+# define MAIN_MENU_5ST "5.<PLACEHOLDER>"
+
 // Macro
 # define TERM_MOVE_CURSOR(X, Y) std::cout << "\x1b[" << Y << ";" << X << "H"
